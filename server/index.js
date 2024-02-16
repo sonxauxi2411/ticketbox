@@ -12,7 +12,7 @@ const port = 3000;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}));
 app.use(session({
-  secret: 'ticketbox', 
+  secret: 'ticketbox-123', 
   resave: false,
   saveUninitialized: false,
 }));
