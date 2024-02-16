@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 //db
 const sequelize = require('./app/config/db.config')
 //models
@@ -10,6 +11,11 @@ const port = 3000;
 //app user
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}));
+app.use(session({
+  secret: 'ticketbox', 
+  resave: false,
+  saveUninitialized: false,
+}));
 
 //router
 const routes = require('./app/routes/index')
