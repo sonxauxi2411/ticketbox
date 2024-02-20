@@ -1,5 +1,6 @@
 const express = require('express');
-const session = require('express-session');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 //db
 const sequelize = require('./app/config/db.config')
 //models
@@ -9,13 +10,14 @@ const app = express();
 const port = 3000;
 
 //app user
+app.use(cookieParser())
 app.use(express.json())
+app.use( cors({
+  origin: ['http://localhost:5173'],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+}))
 app.use(express.urlencoded({ extended: true}));
-app.use(session({
-  secret: 'ticketbox-123', 
-  resave: false,
-  saveUninitialized: false,
-}));
 
 //router
 const routes = require('./app/routes/index')
