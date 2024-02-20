@@ -27,7 +27,7 @@ app.use('/', (req, res) => {
 
 
 sequelize.sync(
-  {force: true}
+  // {force: true}
 ).then(()=>{
 
   app.listen(port, () => {

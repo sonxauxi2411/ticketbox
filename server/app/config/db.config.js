@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(
  'ticketbox',
- 'son',
- '123',
+ 'root',
+ 'root',
   {
     host: 'localhost',
     dialect: 'mysql'
