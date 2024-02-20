@@ -1,19 +1,13 @@
-import { useState } from 'react'
-
-import './App.css'
-import authApi from './api/modules/auth.api'
-
+import {Routes , Route} from 'react-router-dom'
+import LoginPage from './components/auth/LoginPage';
 function App() {
- 
-  const handlerLogin = async ()=>{
-    const respose = await authApi.login({email:'son123@gmail.com', password: 'thienlong123'})
-    
-  }
   return (
     <>
-        <button onClick={handlerLogin}>Click login</button>
+      <Routes>
+        <Route path='/login' element ={<LoginPage />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

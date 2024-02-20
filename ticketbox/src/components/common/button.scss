@@ -1,0 +1,22 @@
+.btn-custom{
+
+    button{
+        border:none ;
+        background-image: -webkit-linear-gradient(169deg, #5560ff 17%, #aa52a1 63%, #ff4343 100%);
+        -webkit-transition: all ease 0.3s;
+        transition: all ease 0.3s;
+        border-radius: 30px;
+        width: auto;
+        padding: 0 50px;
+        height: 50px;
+        text-transform: uppercase;
+        margin: 0 auto;
+        &:hover{
+            box-shadow: 0px 10px 15px 0px rgba(59, 55, 188, 0.5);
+        }
+        span{
+         color :    #ffffff;
+         font-weight: 700;
+        }
+    }
+}

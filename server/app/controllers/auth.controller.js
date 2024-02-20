@@ -33,6 +33,7 @@ exports.login = async (req, res) =>{
         }
         const token = jsonwebtoken.sign({data : user.id}, 'ticketbox-secret' , {expiresIn: '24h'})
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        user.password = undefined;
         res.json({ message: 'Login successful', user: user.toJSON() , token : token });
       } catch (error) {
         console.error('Error logging in:', error);
