@@ -1,39 +1,40 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
+
 //db
-const sequelize = require('./app/config/db.config')
-//models
-const {User} = require('./app/models/index')
+const mongoose = require("mongoose");
 
 const app = express();
-const port = 3000;
+dotenv.config()
+const port = process.env.PORT;
 
 //app user
-app.use(cookieParser())
-app.use(express.json())
-app.use( cors({
-  origin: ['http://localhost:5173'],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  credentials: true,
-}))
-app.use(express.urlencoded({ extended: true}));
+app.use(cookieParser());
+app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+app.use(express.urlencoded({ extended: true }));
 
 //router
-const routes = require('./app/routes/index')
+const routes = require("./app/routes/index");
 
-app.use('/api', routes)
+app.use("/api", routes);
 
-
-sequelize.sync(
-  // {force: true}
-).then(()=>{
-
-  app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("Mongodb connected");
+    app.listen(port, () => {
+      console.log(`Server is running at http://localhost:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Error syncing Sequelize models: ", err);
   });
-  
-}).catch((error) => {
-  console.error('Error syncing Sequelize models: ', error);
-});
-
