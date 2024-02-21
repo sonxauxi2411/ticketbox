@@ -21,11 +21,8 @@ app.use(express.urlencoded({ extended: true}));
 
 //router
 const routes = require('./app/routes/index')
-app.use('/api', routes)
-app.use('/', (req, res) => {
-  res.send('Hello World!');
-});
 
+app.use('/api', routes)
 
 
 sequelize.sync(
