@@ -1,20 +1,37 @@
 import Header from "../header/Header";
 import banner from "../../assets/banner01.jpg";
 import "./home.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Search from "../search/Search";
 import CategoryTicket from "./CategoryTicket";
 import Footer from "../footer/Footer";
 
 const Home = () => {
   const [showText, setShowText] = useState(true);
+  const category = ["Movie ", "Event ", "Sport "];
+  const [cateNumber, setCateNumber] = useState(0);
+  const categoryRef = useRef(null);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setShowText((prevShowText) => !prevShowText);
-    }, 1000);
+      if (categoryRef.current) {
+        const widthElement = categoryRef.current.clientWidth;
+        if (widthElement <= 1) {
+          setShowText((prevShowText) => !prevShowText);
+          setCateNumber((prev) =>
+            prev === category.length - 1 ? 0 : prev + 1
+          );
+        } else {
+          setTimeout(() => {
+            setShowText((prevShowText) => !prevShowText);
+          }, 500);
+        }
+      }
+    }, 1600);
 
     return () => clearInterval(intervalId);
   }, []);
+
   return (
     <div>
       <Header />
@@ -27,15 +44,16 @@ const Home = () => {
           <div className="banner-content">
             <h1 className="title">
               <span className="d-block pb-3">book your</span>
-              <div>
+              <div className="d-flex" style={{ gap: "24px" }}>
                 <span> tickets for</span>
                 <span
+                  ref={categoryRef}
                   className={`animated-span ${
                     showText ? "expanded" : "collapsed"
                   }`}
                 >
                   {/* <b className=""> {showText ? " Event" : " Movie"}</b> */}
-                  <b>Movie</b>
+                  <b>{category[cateNumber]}</b>
                 </span>
               </div>
             </h1>

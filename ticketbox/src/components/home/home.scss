@@ -50,17 +50,32 @@
 }
 
 .animated-span {
+  position: relative;
   display: inline-block;
   overflow: hidden;
   transition: width 1s ease-in-out;
+  b {
+    color: #31d7a9;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 2px;
+    height: 100%;
+    background-color: #aebcb9;
+    margin-left: 20px;
+  }
 }
 
 .expanded {
-  width: 268px;
+  width: 273px;
 }
 
 .collapsed {
-  width: 0;
+  width: 1px;
 }
 
 .category-section {
