@@ -1,0 +1,70 @@
+@keyframes fadeInDown {
+    0%{
+        opacity: 0;
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    }
+}
+
+.header-active {
+    background: #0a1e5e;
+    border: none;
+    animation-name: fadeInDown;
+    -webkit-animation-name: fadeInDown;
+    -moz-animation-name: fadeInDown;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+}
+.header-seaction{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.102);
+    padding: 21px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    // min-height: 100px;
+
+  
+}
+
+.banner-section {
+    // padding: 250px 0px 316px;
+    // position: relative;
+   
+}
+
+.header-link {
+    padding: 5px 12px;
+
+    a {
+        color: #e9eeff;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 5px;
+        position: relative;
+
+        &::before {
+            content: "";
+            width: 0;
+            height: 2px;
+            background: #31d7a9;
+            top: calc(100% + 30px);
+            left: 0;
+            position: absolute;
+            transition: width 0.3s ease, left 0.3s ease; 
+        }
+
+        &:hover::before {
+            width: 100%;
+            left: 0; 
+        }
+    }
+}

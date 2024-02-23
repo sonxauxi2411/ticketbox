@@ -42,6 +42,7 @@ exports.login = async (req, res) =>{
         const token = jsonwebtoken.sign({data : user.id}, 'ticketbox-secret' , {expiresIn: '24h'})
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         user.password = undefined;
+        res.cookie('user', user.toJSON(), { httpOnly: true, maxAge: maxAge * 1000 });
         responseHandler.created(res, {user : user.toJSON() , token: token});
         // res.json({ message: 'Login successful', user: user.toJSON() , token : token });
       } catch (error) {
