@@ -1,0 +1,32 @@
+.ticket--item {
+  margin-bottom: 30px;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  background: url(./src/assets/images/ticket-bg04.png) #ffffff no-repeat center
+    top;
+  background-size: cover;
+  border-radius: 20px;
+  .ticket-thumb {
+    width: 72px;
+    margin: 0 auto 12px;
+  }
+  .ticket-content {
+    .ticket-title {
+      display: block;
+      margin-bottom: 20px;
+      color: #001232;
+      opacity: 0.8;
+      font-size: 32px;
+    }
+    h2 {
+      color: #5760fd;
+    }
+  }
+}
+
+.silde-ticket {
+  .swiper-slide {
+    margin-right: 0 !important;
+  }
+}

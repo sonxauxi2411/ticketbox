@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { FaFacebookF ,FaTwitter } from "react-icons/fa";
 import ButtonCustom from "../common/ButtonCustom";
+import Social from "./Social";
 
 const Footer = () => {
   return (
@@ -34,14 +35,7 @@ const Footer = () => {
             </Link>
           </div>
           
-          <ul className="social-icons">
-                <li>
-                    <Link >
-                        <FaFacebookF />    
-                    </Link>
-                </li>
-                <li><Link><FaTwitter /></Link></li>
-          </ul>
+          <Social />
         </div>
         <div className="footer-bottom">
                 <div className="footer-bottom-area">

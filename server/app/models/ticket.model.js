@@ -16,7 +16,6 @@ const TicketSchema = new mongoose.Schema({
   }, 
    description : {
     type: String,
-    required: true,
   },
   event_id :{
     type : mongoose.Schema.ObjectId,

@@ -5,7 +5,7 @@ import ButtonCustom from "../common/ButtonCustom";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const Header = () => {
+const Header = ({event}) => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -27,7 +27,9 @@ const Header = () => {
     navigate("/login");
   };
   return (
-    <div className={`header-seaction ${isScrolled ? 'header-active' : ''}`}>
+    <div className={`header-seaction ${isScrolled ? 'header-active' : ''}`} 
+    // style={{background: `${event ? '#0a1e5e' : ''}`}}
+    >
       <div className="container">
         <div className="d-flex align-items-center justify-content-between ">
           <div className="logo">
