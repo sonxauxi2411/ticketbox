@@ -6,50 +6,36 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import iconTicket from "../../assets/images/ticket01.png";
 import { formatCurrencyVND } from "../../utils/ticket.utils";
+import { Collapsible } from "@edx/paragon";
 import PropTypes from "prop-types";
 
-const TicketCard = ({tickets}) => {
-    console.log(tickets)
+const TicketCard = ({ tickets }) => {
+  console.log(tickets);
   return (
-    <div>
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        loop={true}
-        autoplay={{
-          delay: 1500,
-          disableOnInteraction: true,
-          pauseOnMouseEnter: true,
-        }}
-        pagination={{
-          clickable: true,
-          type: "fraction",
-        }}
-        modules={[Navigation, Autoplay]}
-        className="silde-ticket w-100 h-100"
-      >
-       {tickets?.map(ticket=>{
-         return (
+    <div className="d-flex flex-column" style={{gap:'10px'}}>
+      {tickets?.map((ticket) => {
+        return (
+          <div key={ticket._id}>
+            <Collapsible.Advanced className="collapsible-card">
+              <Collapsible.Trigger className="collapsible-trigger d-flex">
+                <span className="flex-grow-1 ticket-title">
+                  <img src={iconTicket} alt='icon' />
+                  <span>{ticket.display_name}</span>
+                </span>
+                <h2 className="ticket-price">{formatCurrencyVND(ticket.price)}</h2>
+              </Collapsible.Trigger>
 
-            <SwiperSlide key={ticket._id}>
-         <div className="ticket--item">
-           <div className="ticket-thumb">
-             <img src={iconTicket} alt="ticket" />
-           </div>
-           <div className="ticket-content">
-             <span className="ticket-title">{ticket.display_name}</span>
-             <h2 className="amount">{formatCurrencyVND(ticket.price)}</h2>
-           </div>
-         </div>
-       </SwiperSlide>
-         )
-       })}
-      </Swiper>
+              <Collapsible.Body className="collapsible-body">
+              </Collapsible.Body>
+            </Collapsible.Advanced>
+          </div>
+        );
+      })}
     </div>
   );
 };
 
 TicketCard.propTypes = {
-    tickets: PropTypes.array.isRequired,
-  };
+  tickets: PropTypes.array.isRequired,
+};
 export default TicketCard;

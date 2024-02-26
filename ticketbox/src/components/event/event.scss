@@ -20,7 +20,7 @@
   z-index: 9;
   &::before {
     content: "";
-    background-color: #0a1e5e !important;
+    background-color: #001232 !important;
     position: absolute;
     top: 110px;
     right: 0;
@@ -146,11 +146,27 @@
 
 .event-content-section {
   padding-top: 120px;
-  background-color: #0a1e5e !important;
+  background-color: #001232 !important;
 
   .event-cotent {
     display: flex;
     flex-direction: column;
     gap: 30px;
   }
+}
+
+.event-org-card {
+  padding: 30px;
+  background-image: -webkit-linear-gradient(0deg, #7400ba 0%, #0f5ae0 100%);
+  display: flex;
+  gap: 20px;
+  margin: 0px 120px 120px;
+}
+
+.event-org{
+  margin-top: 120px;
+}
+
+.event-ticket {
+  margin-top: 120px;
 }

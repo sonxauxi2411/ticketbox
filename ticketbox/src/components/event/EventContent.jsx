@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import TicketCard from "../ticket/TicketCard";
 
-const EventContent = ({ tickets }) => {
+const EventContent = ({ tickets, org }) => {
 
   return (
     <div className="event-content-section">
@@ -35,6 +35,17 @@ const EventContent = ({ tickets }) => {
             <h2>About Ticket</h2>
                 <TicketCard tickets={tickets} />
           </div>
+
+          <div className="event-org">
+            <h2>About Organizer</h2>
+            <div className="event-org-card">
+              <img src={org?.img} alt='org-img' />
+              <div >
+                <h3>{org?.display_name}</h3>
+                <p>{org?.description}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -43,6 +54,7 @@ const EventContent = ({ tickets }) => {
 
 EventContent.propTypes = {
   tickets: PropTypes.array.isRequired,
+  org: PropTypes.object.isRequired,
 };
 
 export default EventContent;

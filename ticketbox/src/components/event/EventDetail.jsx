@@ -7,6 +7,7 @@ import Social from "../footer/Social";
 import CountdownTimer from "./CountdownTimer";
 import EventContact from "./EventContact";
 import EventContent from "./EventContent";
+import Footer from "../footer/Footer";
 
 const EventDetail = ({ event }) => {
   console.log('eeeeeee', event);
@@ -44,7 +45,8 @@ const EventDetail = ({ event }) => {
           </div>
         </div>
       </div>
-        <EventContent tickets={event.tickets}/>
+        <EventContent tickets={event.tickets} org={event.org}/>
+      <Footer />
     </>
   );
 };
