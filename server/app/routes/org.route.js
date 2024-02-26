@@ -3,6 +3,8 @@ const orgController = require('../controllers/org.controller')
 
 
 router.post('/create' , orgController.createOrg)
+router.get('/all' , orgController.getAllOrg)
+router.post('/delete' , orgController.deleteOrg)
 
 
 
