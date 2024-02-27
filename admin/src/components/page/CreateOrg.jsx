@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import orgApi from "../../api/modules/org.api";
 import { useDispatch } from "react-redux";
 import { setGlobalLoading } from "../../redux/loading/loadingSlice";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const CreateOrg = () => {
   const dispath = useDispatch();
@@ -16,17 +16,17 @@ const CreateOrg = () => {
   };
   const formCreateOrg = useFormik({
     initialValues: {
-      name: "asdasdasd",
-      img: "http://localhost:5173/organization/create",
-      desc: "asdasdasdasds",
+      name: "",
+      img: "",
+      desc: "",
     },
     onSubmit: async (values) => {
       try {
         dispath(setGlobalLoading(true));
         const { name, desc, img } = values;
-        await orgApi.createOrg({name, desc, img});
+        await orgApi.createOrg({ name, desc, img });
         dispath(setGlobalLoading(false));
-        navigate('/organization')
+        navigate("/organization");
       } catch (error) {
         console.log(error);
       }

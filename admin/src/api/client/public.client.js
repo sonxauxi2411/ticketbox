@@ -22,6 +22,7 @@ publicClient.interceptors.response.use(
     return response;
   },
   (err) => {
+    console.log(err)
     throw err.response.data;
   }
 );

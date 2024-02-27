@@ -9,6 +9,8 @@ const Organizational = () => {
   const [listOrg, setListOrg] = useState([]);
   const [showCheck, setShowCheck] = useState(false);
   const [checks, setChecks] = useState([]);
+
+
   useEffect(() => {
     const fetchEvent = async () => {
       try {

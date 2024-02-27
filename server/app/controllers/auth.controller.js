@@ -32,13 +32,16 @@ exports.register = async (req, res) =>{
 
 exports.login = async (req, res) =>{
     try {
-        const { email, password } = req.body;
+        const { email, password , isAdminPage} = req.body;
         const user = await UserModel.findOne({email });
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
           return responseHandler.badrequest(res, "Wrong Email and Password")
         }
- 
+        if(isAdminPage && !user.isAdmin){
+          return responseHandler.badrequest(res, "You are not admin")
+        }
+       
         const token = jsonwebtoken.sign({data : user.id}, 'ticketbox-secret' , {expiresIn: '24h'})
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         user.password = undefined;
