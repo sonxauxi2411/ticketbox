@@ -29,6 +29,10 @@ const Navbar = () => {
             Organization
           </NavLink>
         </div>
+
+        <div className="header-link">
+          <NavLink to="/location">Location</NavLink>
+        </div>
       </div>
     </div>
   );

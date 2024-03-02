@@ -57,3 +57,19 @@
     flex-direction: column;
   }
 }
+
+
+.modal-content{
+  background-color: #111c44;
+  .modal-header{
+    border-color: #213752;
+    .btn-icon-close{
+      font-size: 24px;
+      &:hover {
+        color : rgb(100 116 139 );
+        cursor: pointer;
+      }
+    }
+  }
+ 
+}

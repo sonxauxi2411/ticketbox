@@ -18,3 +18,13 @@ exports.createLocation = async (req, res)=>{
         responseHandler.error(res);
     }
 } 
+
+exports.getAllLocation = async (req, res)=>{
+    try {
+        const allLocation = await LocationModel.find({})
+        return responseHandler.ok(res, allLocation);
+    } catch (error) {
+        console.error( error);
+        responseHandler.error(res);
+    }
+}

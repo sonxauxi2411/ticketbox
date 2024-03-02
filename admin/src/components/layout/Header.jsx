@@ -21,7 +21,6 @@ const Header = () => {
   const [name, setName] = useState("");
   const [pathname, setPathname] = useState("");
   useEffect(() => {
-    console.log(location.pathname);
     if (location.pathname == "/") {
       setName("Main Dashboard");
       setPathname(" / Main Dashboard");

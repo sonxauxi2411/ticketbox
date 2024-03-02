@@ -1,17 +1,14 @@
-import Dropdown from "react-bootstrap/Dropdown";
 import "./actions.scss";
-import { BsThreeDots } from "react-icons/bs";
+import { FaTrashAlt } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import orgApi from "../../api/modules/org.api";
 
-const Action = ({ checks }) => {
+const Action = ({ checks , open}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const hanlderCreate = () => {
-    navigate("create", { state: { name: `Create ${location.state.name}` } });
-  };
+
   const handlerDelete = async () => {
     try {
       await orgApi.deleteOrg({ids: checks})
@@ -22,28 +19,15 @@ const Action = ({ checks }) => {
   };
   return (
     <div className="actions">
-      <Dropdown>
-        <Dropdown.Toggle className="btn-actions">
-          <BsThreeDots />
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu className="menu-action">
-          <div className="d-flex flex-column">
-            <button className="btn" onClick={hanlderCreate}>
-              Create
-            </button>
-            <button className="btn" onClick={handlerDelete}>
-              Delete
-            </button>
-          </div>
-        </Dropdown.Menu>
-      </Dropdown>
+      <button className="btn btn-danger"><FaTrashAlt /></button>
+      <button className="btn btn-primary" onClick={open}>Create</button>
     </div>
   );
 };
 
 Action.propTypes = {
   checks: PropTypes.Array,
+  open: PropTypes.func,
 };
 
 export default Action;

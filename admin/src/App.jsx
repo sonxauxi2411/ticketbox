@@ -1,8 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Organizational from "./components/page/Organizational";
 import MainLayout from "./components/layout/MainLayout";
 import "./index.scss";
-import CreateOrg from "./components/page/CreateOrg";
 import GlobalLoading from "./components/common/GlobaLoading";
 import LoginPage from "./components/auth/LoginPage";
 import { privateRoutes } from "./routes/routes";

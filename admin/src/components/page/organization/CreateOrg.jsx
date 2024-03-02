@@ -1,11 +1,11 @@
 import { IoMdArrowBack } from "react-icons/io";
 import { IoArrowBackSharp } from "react-icons/io5";
-import FormGroup from "../auth/FormGroup";
+import FormGroup from "../../auth/FormGroup";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import orgApi from "../../api/modules/org.api";
+import orgApi from "../../../api/modules/org.api";
 import { useDispatch } from "react-redux";
-import { setGlobalLoading } from "../../redux/loading/loadingSlice";
+import { setGlobalLoading } from "../../../redux/loading/loadingSlice";
 import { useNavigate } from "react-router-dom";
 
 const CreateOrg = () => {

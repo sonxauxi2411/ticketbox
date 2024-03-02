@@ -14,7 +14,7 @@ const FormGroup = ({
     <div className="form-group">
       <label>
         <span>{label}</span>
-        {form.touched[name] && form.errors[name] && (
+        {form?.touched[name] && form.errors[name] && (
           <span className="text-error">{form.errors[name]}</span>
         )}
       </label>

@@ -1,21 +1,4 @@
-.btn-actions {
-  &::after {
-    content: none;
-  }
-  background-color: #303d6e !important;
-  border: none !important;
-  border-radius: 3px;
-  color: white;
-}
-.menu-action {
-  background-color: #303d6e !important;
-  text-align: center;
-  // display: flex !important;
-  flex-direction: column;
-  button {
-    color: white;
-    &:hover {
-      color: #8f9bba;
-    }
-  }
+.actions {
+  display: flex;
+  gap: 10px;
 }

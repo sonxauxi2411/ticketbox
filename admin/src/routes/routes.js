@@ -1,6 +1,7 @@
 import LoginPage from "../components/auth/LoginPage";
-import CreateOrg from "../components/page/CreateOrg";
-import Organizational from "../components/page/Organizational";
+import Location from "../components/page/location/Location";
+import CreateOrg from "../components/page/organization/CreateOrg";
+import Organizational from "../components/page/organization/Organizational";
 
 
 const privateRoutes = [
@@ -10,6 +11,9 @@ const privateRoutes = [
     {
         path: '/organization/create', component : CreateOrg
     },
+    {
+        path: '/location' , component : Location
+    }
 
 ]
 

@@ -80,6 +80,31 @@ input {
 
 .check-custom {
   font-size: 22px;
-  color : #7551ff;
-  border-color:  #7551ff;
+  color: #7551ff;
+  border-color: #7551ff;
+}
+
+.btn-delete {
+  background-color: #ee5d50;
+  color: white;
+  &:hover {
+    background-color: #ee5d50ad;
+  }
+}
+
+.btn-edit{
+  background-color: #ffb547;
+  color: white;
+  &:hover{
+    background-color: #ffb5478c;
+  }
+}
+
+.btn-create {
+  background-color: #249782;
+  color: white;
+  border-color:#249782 !important ;
+  &:hover {
+    background-color: rgb(32 136 117);
+  }
 }
