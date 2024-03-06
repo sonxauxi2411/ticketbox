@@ -20,7 +20,6 @@ const CreateLocation = ({ close }) => {
   });
   return (
     <form
-      onSubmit={formCreateLocation.onSubmit}
       className="d-flex flex-column"
       style={{ gap: "20px" }}
     >

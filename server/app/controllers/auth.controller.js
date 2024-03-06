@@ -42,7 +42,7 @@ exports.login = async (req, res) =>{
           return responseHandler.badrequest(res, "You are not admin")
         }
        
-        const token = jsonwebtoken.sign({data : user.id}, 'ticketbox-secret' , {expiresIn: '24h'})
+        const token = jsonwebtoken.sign({data : user}, process.env.JWT_KEY , {expiresIn: '24h'})
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         user.password = undefined;
         res.cookie('user', user.toJSON(), { httpOnly: true, maxAge: maxAge * 1000 });
