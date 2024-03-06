@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: null,
+    user: Cookies.get('user') ? JSON.parse(Cookies.get('user').substring(2)) : null,
     error: null,
     isLoading: false,
   },

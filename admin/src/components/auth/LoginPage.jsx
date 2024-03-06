@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
-import logo from "../../assets/logo.png";
 import FormGroup from "./FormGroup";
 import * as Yup from "yup";
 import { useState } from "react";
 import authApi from "../../api/modules/auth.api";
+import {useNavigate} from 'react-router-dom'
 
 const validatonSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -12,6 +12,7 @@ const validatonSchema = Yup.object().shape({
 
 const LoginPage = () => {
   const [error, setError] = useState("");
+  const navigate = useNavigate()
   const loginForm = useFormik({
     initialValues: {
       email: "",
@@ -26,6 +27,8 @@ const LoginPage = () => {
         });
         if (response.message) {
           setError(response.message);
+        }else {
+          navigate('/')
         }
       } catch (errors) {
         loginForm.setErrors(
@@ -45,7 +48,7 @@ const LoginPage = () => {
             <h2 className="">Login Admin</h2>
             <span>Enter your email and password to sign in!</span>
           </div>
-          <div className="text-center" style={{ height: "28px" }}>
+          <div className="text-center text-danger" style={{ height: "28px" }}>
             <span>{error}</span>
           </div>
           <form
