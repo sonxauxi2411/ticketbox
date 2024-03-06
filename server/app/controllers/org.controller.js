@@ -34,7 +34,7 @@ exports.getAllOrg = async (req, res) => {
 exports.deleteOrg = async (req, res) => {
   try {
     const {ids} = req.body;
-    console.log(req.body);
+    console.log(ids);
     const result = await OrgModel.deleteMany({ _id: { $in: ids } });
     if (result.deletedCount > 0) {
       responseHandler.ok(res, {message :  'Organizations deleted successfully'});

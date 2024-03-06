@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import ModalForm from "../../layout/ModalForm";
 import CreateLocation from "./CreateLocation";
 
+
 const Location = () => {
   const [listLocation, setListLocation] = useState([]);
   const [checks, setChecks] = useState([]);
@@ -85,10 +86,7 @@ const Location = () => {
                 <td>{location.city}</td>
                 <td>{location.adress}</td>
                 <td>
-                  <div className="d-flex" style={{ gap: "10px" }}>
-                    <button className="btn btn-danger">Delete</button>
-                    <button className="btn btn-primary">Edit</button>
-                  </div>
+                <Action open={() => setShow(true)} checks={checks} id={location._id} />
                 </td>
               </tr>
             );

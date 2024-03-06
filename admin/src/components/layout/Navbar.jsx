@@ -26,12 +26,14 @@ const Navbar = () => {
         </div>
         <div className="header-link">
           <NavLink to="/organization" state={{ name: "Organization" }}>
-            Organization
+           <span> Organization</span>
           </NavLink>
         </div>
 
         <div className="header-link">
-          <NavLink to="/location">Location</NavLink>
+          <NavLink to="/location">
+            <span>Location</span>
+          </NavLink>
         </div>
       </div>
     </div>

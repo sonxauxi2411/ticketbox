@@ -22,18 +22,24 @@
         font-weight: 400;
         color: white;
         font-size: 18px;
+        opacity: 0.5
+      
       }
       .active {
+        opacity: 1;
         &::before {
           content: "";
           position: absolute;
           top: 0%;
-          right: 4px;
-          width: 4px;
-          background-color: #7551ff;
+          right: 0%;
+          width: 100%;
+          background-color: #0e183e;
           height: 100%;
-          z-index: 99;
           border-radius: 14px;
+        }
+        span{
+          position: relative;
+          z-index: 99;
         }
       }
     }

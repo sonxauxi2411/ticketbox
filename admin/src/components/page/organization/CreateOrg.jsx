@@ -6,14 +6,11 @@ import * as Yup from "yup";
 import orgApi from "../../../api/modules/org.api";
 import { useDispatch } from "react-redux";
 import { setGlobalLoading } from "../../../redux/loading/loadingSlice";
-import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
-const CreateOrg = () => {
+const CreateOrg = ({close}) => {
   const dispath = useDispatch();
-  const navigate = useNavigate();
-  const handlerBack = () => {
-    window.history.back();
-  };
+
   const formCreateOrg = useFormik({
     initialValues: {
       name: "",
@@ -25,30 +22,20 @@ const CreateOrg = () => {
         dispath(setGlobalLoading(true));
         const { name, desc, img } = values;
         await orgApi.createOrg({ name, desc, img });
+        close();
+        window.location.reload()
         dispath(setGlobalLoading(false));
-        navigate("/organization");
       } catch (error) {
         console.log(error);
       }
     },
   });
-  const { name, img, desc } = formCreateOrg.values;
+
   return (
-    <div className="pt-3">
-      <div className="text-end  ">
-        <button
-          className="btn btn-outline"
-          onClick={handlerBack}
-          style={{ fontSize: "24px" }}
-        >
-          <IoMdArrowBack />
-        </button>
-      </div>
-      <div className="row">
+    <div>
         <form
           onSubmit={formCreateOrg.handleSubmit}
-          className="col-4 d-flex flex-column"
-          style={{ gap: "20px" }}
+          className="d-flex flex-column" style={{ gap: "20px" }}
         >
           <FormGroup
             label="Name"
@@ -74,25 +61,20 @@ const CreateOrg = () => {
             onChange={formCreateOrg.handleChange}
             value={formCreateOrg.values.desc}
           />
-          <div className="">
-            <button className="btn-custom" type="submit">
-              <span>Submit</span>
-            </button>
-          </div>
-        </form>
-        <div
-          className="col-8 d-flex align-items-center justify-content-center"
-          style={{ gap: "10px" }}
+           <div className="d-flex " style={{ gap: "10px" }}>
+        <Button
+          onClick={formCreateOrg.handleSubmit}
+          type="submit"
+          className="btn btn-create"
         >
-          <span>
-            <img src={img} alt="" />
-          </span>
-          <div className="d-flex flex-column">
-            <span>{name}</span>
-            <span>{desc}</span>
-          </div>
-        </div>
+          Add Location
+        </Button>
+        <Button onClick={close} className="btn btn-secondary">
+          Close
+        </Button>
       </div>
+        </form>
+
     </div>
   );
 };

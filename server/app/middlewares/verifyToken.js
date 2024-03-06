@@ -5,7 +5,7 @@ const verifyToken = (req, res, next) => {
 
   if (token) {
     console.log("Verifying token");
-    const accessToken = token.split(" ")[2];
+    const accessToken = token.split(" ")[1];
     jwt.verify(accessToken,process.env.JWT_KEY, (err, decoded) => {
         if(err){
             res.status(403).json("Token is not valid!");
