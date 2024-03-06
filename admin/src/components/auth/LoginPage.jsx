@@ -1,9 +1,11 @@
 import { useFormik } from "formik";
 import FormGroup from "./FormGroup";
 import * as Yup from "yup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import authApi from "../../api/modules/auth.api";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setGlobalLoading } from "../../redux/loading/loadingSlice";
 
 const validatonSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -12,7 +14,9 @@ const validatonSchema = Yup.object().shape({
 
 const LoginPage = () => {
   const [error, setError] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispath = useDispatch();
+
   const loginForm = useFormik({
     initialValues: {
       email: "",
@@ -20,6 +24,7 @@ const LoginPage = () => {
     },
     onSubmit: async (values) => {
       try {
+        dispath(setGlobalLoading(true));
         await validatonSchema.validate(values, { abortEarly: false });
         const response = await authApi.login({
           email: values.email,
@@ -27,9 +32,10 @@ const LoginPage = () => {
         });
         if (response.message) {
           setError(response.message);
-        }else {
-          navigate('/')
+        } else {
+          window.location.reload();
         }
+        dispath(setGlobalLoading(false));
       } catch (errors) {
         loginForm.setErrors(
           errors.inner.reduce(
@@ -37,9 +43,16 @@ const LoginPage = () => {
             {}
           )
         );
+
       }
     },
   });
+  const user = useSelector((state) => state.auth.user);
+  useEffect(() => {
+    if (user) {
+      return navigate("/");
+    }
+  }, []);
   return (
     <div className="container">
       <div className="wrapper-login">
