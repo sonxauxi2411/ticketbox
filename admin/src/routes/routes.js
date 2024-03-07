@@ -1,8 +1,7 @@
 import LoginPage from "../components/auth/LoginPage";
 import Dashboard from "../components/page/dashboard/Dashboard";
-
+import Event from "../components/page/event/Event";
 import Location from "../components/page/location/Location";
-import CreateOrg from "../components/page/organization/CreateOrg";
 import Organizational from "../components/page/organization/Organizational";
 
 const privateRoutes = [
@@ -15,13 +14,13 @@ const privateRoutes = [
     component: Organizational,
   },
   {
-    path: "/organization/create",
-    component: CreateOrg,
-  },
-  {
     path: "/location",
     component: Location,
   },
+  {
+    path : "/event",
+    component: Event
+  }
 ];
 
 const publicRoutes = [

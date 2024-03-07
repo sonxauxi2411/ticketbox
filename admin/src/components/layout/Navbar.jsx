@@ -35,6 +35,11 @@ const Navbar = () => {
             <span>Location</span>
           </NavLink>
         </div>
+        <div className="header-link">
+          <NavLink to="/event">
+            <span>Event</span>
+          </NavLink>
+        </div>
       </div>
     </div>
   );
