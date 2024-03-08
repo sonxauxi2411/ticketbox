@@ -11,24 +11,52 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import eventApi from "../../../api/modules/event.api";
-import {useDispatch} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { setGlobalLoading } from "../../../redux/loading/loadingSlice";
+import { resetDataEdit } from "../../../redux/editData/editSlice";
 
-const CreateEvent = ({close}) => {
+const optionCategory = [
+  { value: "Event", label: "Event" },
+  { value: "Sport", label: "Sport" },
+  { value: "Workshop", label: "Workshop" },
+  { value: "Live Music", label: "Live Music" },
+  { value: "Stage", label: "Stage" },
+];
+
+const CreateEvent = ({ close }) => {
   const animatedComponents = makeAnimated();
+  const eventDataEdit = useSelector((state) => state.edit.data);
   const [listOrg, setListOrg] = useState([]);
   const [listLocation, setLocation] = useState([]);
   const [selectedDate, setSelectedDate] = useState({
-    start: new Date(),
-    end: new Date(),
+    start: eventDataEdit?.start_date_time
+      ? new Date(eventDataEdit.start_date_time)
+      : new Date(),
+    end: eventDataEdit?.end_date_time
+      ? new Date(eventDataEdit.end_date_time)
+      : new Date(),
   });
+
+  const categoryEventEdit = optionCategory.filter((cate) =>
+    eventDataEdit?.category.includes(cate.value)
+  );
+  const orgEventEdit = {
+    value: eventDataEdit?.org._id,
+    label: eventDataEdit?.org.display_name,
+  };
+  const locationEdit = {
+    value: eventDataEdit?.location._id,
+    label: eventDataEdit?.location.display_name,
+  };
   const [selectedOptions, setSelectedOptions] = useState({
-    category: null,
-    org: null,
-    location: null,
+    category: categoryEventEdit ? categoryEventEdit.map(o => o.value) : null,
+    org: orgEventEdit ? orgEventEdit.value : null,
+    location: locationEdit ? locationEdit.value : null,
   });
-  const [desc, setDesc] = useState("");
-  const dispatch = useDispatch()
+  const [desc, setDesc] = useState(eventDataEdit?.description ? eventDataEdit.description : "" );
+
+  // console.log(eventDataEdit)
+  const dispatch = useDispatch();
   const handleDateChange = (date, dateType) => {
     setSelectedDate((prevState) => ({
       ...prevState,
@@ -73,31 +101,41 @@ const CreateEvent = ({close}) => {
   };
   const formCreateEvent = useFormik({
     initialValues: {
-      name: "",
-      img: "",
+      name: eventDataEdit ? eventDataEdit.display_name : "",
+      img: eventDataEdit ? eventDataEdit.background : "",
     },
     onSubmit: async (values) => {
       try {
-        dispatch(setGlobalLoading(true));
+        // dispatch(setGlobalLoading(true));
         const data = {
           name: values.name,
           background: values.img,
-          org_id : selectedOptions.org,
-          start_date : selectedDate.start,
-          end_date : selectedDate.end,
+          org_id: selectedOptions.org,
+          start_date: selectedDate.start,
+          end_date: selectedDate.end,
           category: selectedOptions.category,
-          location_id : selectedOptions.location,
-          description: desc
+          location_id: selectedOptions.location,
+          description: desc,
         };
-   
-        await eventApi.createEvent(data)
-        dispatch(setGlobalLoading(false));
-        window.location.reload();
+        if (eventDataEdit) {
+
+          await eventApi.updateEvent({ event_id: eventDataEdit._id, data });
+        } else {
+    
+          // await eventApi.createEvent(data);
+        }
+        // dispatch(setGlobalLoading(false));
+        // window.location.reload();
       } catch (error) {
         console.log("Error creating", error);
       }
     },
   });
+  const handlerClose = () => {
+    close();
+    dispatch(resetDataEdit());
+  };
+
   return (
     <div>
       <form
@@ -130,14 +168,12 @@ const CreateEvent = ({close}) => {
                 components={animatedComponents}
                 isMulti
                 className="form-select-custom"
-                options={[
-                  { value: "Event", label: "Event" },
-                  { value: "Sport", label: "Sport" },
-                ]}
+                options={optionCategory}
                 value={setSelectedOptions.category}
                 onChange={(selectedOption) =>
                   handleChange(selectedOption, "category")
                 }
+                defaultValue={categoryEventEdit ? categoryEventEdit : null}
               />
             </div>
 
@@ -152,6 +188,7 @@ const CreateEvent = ({close}) => {
                 onChange={(selectedOption) =>
                   handleChange(selectedOption, "org")
                 }
+                defaultValue={orgEventEdit ? orgEventEdit : ""}
               />
             </div>
             <div>
@@ -165,6 +202,7 @@ const CreateEvent = ({close}) => {
                 onChange={(selectedOption) =>
                   handleChange(selectedOption, "location")
                 }
+                defaultValue={locationEdit ? locationEdit : ""}
               />
             </div>
             <div className="d-flex" style={{ gap: "10px" }}>
@@ -193,7 +231,7 @@ const CreateEvent = ({close}) => {
 
             <CKEditor
               editor={ClassicEditor}
-              data=""
+              data={eventDataEdit?.description ? eventDataEdit.description : "" }
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setDesc(data);
@@ -207,9 +245,9 @@ const CreateEvent = ({close}) => {
             type="submit"
             className="btn btn-create"
           >
-            Add Location
+            <span>{eventDataEdit ? "Edit" : " Add Location"}</span>
           </Button>
-          <Button onClick={close} className="btn btn-secondary">
+          <Button onClick={handlerClose} className="btn btn-secondary">
             Close
           </Button>
         </div>

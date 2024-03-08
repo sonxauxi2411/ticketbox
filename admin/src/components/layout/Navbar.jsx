@@ -26,7 +26,7 @@ const Navbar = () => {
         </div>
         <div className="header-link">
           <NavLink to="/organization" state={{ name: "Organization" }}>
-           <span> Organization</span>
+            <span> Organization</span>
           </NavLink>
         </div>
 
@@ -38,6 +38,11 @@ const Navbar = () => {
         <div className="header-link">
           <NavLink to="/event">
             <span>Event</span>
+          </NavLink>
+        </div>
+        <div className="header-link">
+          <NavLink to="/ticket">
+            <span>Ticket</span>
           </NavLink>
         </div>
       </div>

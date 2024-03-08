@@ -7,9 +7,13 @@ import locationApi from "../../api/modules/location.api";
 import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import eventApi from "../../api/modules/event.api";
+import { useDispatch } from "react-redux";
+import { setDataEdit } from "../../redux/editData/editSlice";
 
-const Action = ({ checks, open, id }) => {
+
+const Action = ({ checks, open, id, data }) => {
   const location = useLocation();
+  const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false);
 
   const handlerDelete = async () => {
@@ -27,7 +31,10 @@ const Action = ({ checks, open, id }) => {
       console.error(error);
     }
   };
-
+const handlerEdit = ()=>{
+  open()
+  dispatch(setDataEdit(data))
+}
   return (
     <>
       {id ? (
@@ -35,7 +42,7 @@ const Action = ({ checks, open, id }) => {
           <button className="btn btn-danger" onClick={handlerDelete}>
             Delete
           </button>
-          <button className="btn btn-primary">Edit</button>
+          <button className="btn btn-primary" onClick={handlerEdit}>Edit</button>
         </div>
       ) : (
         <div className="actions">

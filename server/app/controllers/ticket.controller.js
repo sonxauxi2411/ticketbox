@@ -21,3 +21,24 @@ exports.createTicket = async (req, res) => {
     responseHandler.error(res);
   }
 };
+
+
+exports.ticketAll = async (req, res) => {
+  try {
+    const ticketAll = await TicketModel.find({})
+ 
+    const data = await Promise.all(
+      ticketAll.map(async (t)=>{
+        const event = await EventModel.findById(t.event_id);
+        const {event_id, ...reset} = t._doc;
+
+        const results = {...reset , event: {name : event.display_name, _id : event._id}}
+        return results
+      })
+    )
+    return responseHandler.ok(res, data);
+  } catch (error) {
+    console.error(error);
+    responseHandler.error(res);
+  }
+}

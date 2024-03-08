@@ -3,6 +3,7 @@ import Dashboard from "../components/page/dashboard/Dashboard";
 import Event from "../components/page/event/Event";
 import Location from "../components/page/location/Location";
 import Organizational from "../components/page/organization/Organizational";
+import Ticket from "../components/page/ticket/Ticket";
 
 const privateRoutes = [
   {
@@ -20,7 +21,11 @@ const privateRoutes = [
   {
     path : "/event",
     component: Event
-  }
+  },
+{
+  path: '/ticket', 
+  component: Ticket
+}
 ];
 
 const publicRoutes = [

@@ -4,6 +4,7 @@ const tickecontroller = require('../controllers/ticket.controller')
 
 router.post('/create' , tickecontroller.createTicket)
 
+router.get('/all' , tickecontroller.ticketAll)
 
 
 

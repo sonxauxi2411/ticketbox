@@ -8,6 +8,8 @@ router.get('/all', eventController.getAllEvent)
 
 router.post('/delete', eventController.deleteEvent)
 
+router.post('/update', eventController.updateEvent)
+
 router.get('/:eventId' , eventController.getEvent)
 
 

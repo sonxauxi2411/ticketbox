@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
-import eventApi from "../../../api/modules/event.api";
+import ticketApi from "../../../api/modules/ticket.api";
 import Action from "../../action/Action";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import Modal from "react-bootstrap/Modal";
 import ModalForm from "../../layout/ModalForm";
-import CreateEvent from "./CreateEvent";
-
-const Event = () => {
-  const [listEvent, setListEvent] = useState([]);
+import CreateTicket from "./CreateTicket";
+const Ticket = () => {
+  const [listTicket, setListTicket] = useState([]);
   const [checks, setChecks] = useState([]);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const fetchEvent = async () => {
+    const fetchTicket = async () => {
       try {
-        const response = await eventApi.allEvent();
+        const response = await ticketApi.allTicket();
         // console.log(response);
-        setListEvent(response);
+        setListTicket(response);
       } catch (error) {
         console.error("Error fetching event:", error);
       }
     };
-    fetchEvent();
+    fetchTicket();
   }, []);
 
+  console.log(listTicket);
   return (
     <div className="section-content">
       <div className="title-content d-flex justify-content-between align-items-center">
@@ -38,7 +38,7 @@ const Event = () => {
           <tr className="table-title">
             <th>
               <span className="check-custom">
-                {checks.length == listEvent.length ? (
+                {checks.length == listTicket.length ? (
                   <MdCheckBox />
                 ) : (
                   <MdCheckBoxOutlineBlank />
@@ -46,15 +46,13 @@ const Event = () => {
               </span>
             </th>
             <th>name</th>
-            <th>IMG</th>
-            <th>ORG</th>
-            <th>Time</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>desc</th>
+            <th>Event</th>
             <th>Action</th>
           </tr>
-          {listEvent.map((e) => {
-            const start_date = new Date(e.end_date_time).toLocaleDateString(
-              "en-GB"
-            );
+          {listTicket.map((e) => {
             return (
               <tr key={e._id}>
                 <td>
@@ -70,26 +68,30 @@ const Event = () => {
                   </span>
                 </td>
                 <td>{e.display_name}</td>
+                <td>{e.price}</td>
+                <td>{e.quantity}</td>
+                <td>{e.description}</td>
+                <td>{e.event.name}</td>
                 <td>
-                  <img src={e.background} alt={e.display_name} width="200px" />
+                  <Action
+                    open={() => setShow(true)}
+                    checks={checks}
+                    id={e._id}
+             
+                  />
                 </td>
-                <td>{e.org.display_name}</td>
-                <td>
-                  <span>{start_date}</span>
-                </td>
-                <td> <Action open={() => setShow(true)} checks={checks} id={e._id} data={e} /></td>
               </tr>
             );
           })}
         </table>
       </div>
-      <Modal className=""  fullscreen show={show} onHide={() => setShow(false)}>
+      <Modal className="" centered show={show} onHide={() => setShow(false)}>
         <ModalForm title="Event" close={() => setShow(false)}>
-          <CreateEvent close={() => setShow(false)} />
+          <CreateTicket close={() => setShow(false)} />
         </ModalForm>
       </Modal>
     </div>
   );
 };
 
-export default Event;
+export default Ticket;

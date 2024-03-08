@@ -6,6 +6,7 @@ const eventEndpoint = {
   allEvent: "/event/all",
   createEvent: "/event/create",
   deleteEvent: "/event/delete",
+  updateEvent : "/event/update",
 };
 
 const eventApi = {
@@ -50,6 +51,14 @@ const eventApi = {
       return { error };
     }
   },
+  updateEvent : async ({event_id, data}) =>{
+    try {
+      const response = await privateClient.post(eventEndpoint.updateEvent, {event_id, data})
+      return response
+    } catch (error) {
+      return {error}
+    }
+  }
 };
 
 export default eventApi;

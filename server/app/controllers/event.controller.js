@@ -76,9 +76,10 @@ exports.getAllEvent = async (req, res) => {
     const data = await Promise.all(
       allEvent.map(async (event) => {
         const org = await OrgModel.findById(event.org_id);
+        const location = await LocationModel.findById(event.location_id);
 
-        const { org_id, ...rest } = event._doc;
-        const results = { ...rest, org: org };
+        const { org_id, location_id, ...rest } = event._doc;
+        const results = { ...rest, org: org, location: location };
         return results;
       })
     );
@@ -92,14 +93,49 @@ exports.getAllEvent = async (req, res) => {
 
 exports.deleteEvent = async (req, res) => {
   try {
-    const {ids} = req.body;
-    console.log(req.body)
+    const { ids } = req.body;
+    console.log(req.body);
     const result = await EventModel.deleteMany({ _id: { $in: ids } });
     if (result.deletedCount > 0) {
-      responseHandler.ok(res, {message :  'Event deleted successfully'});
+      responseHandler.ok(res, { message: "Event deleted successfully" });
     } else {
-      responseHandler.badrequest(res, {message : 'No Event found with the provided IDs'});
+      responseHandler.badrequest(res, {
+        message: "No Event found with the provided IDs",
+      });
     }
+  } catch (error) {
+    console.error(error);
+    responseHandler.error(res);
+  }
+};
+
+exports.updateEvent = async (req, res) => {
+  try {
+    const { data, event_id } = req.body;
+    const {
+      name,
+      category,
+      org_id,
+      location_id,
+      start_date,
+      end_date,
+      background,
+      description,
+    } = data;
+    const event = await EventModel.findById(event_id);
+    if(!event) return responseHandler.badrequest(res, {
+      message: "No Event found with the provided IDs",
+    });
+    event.display_name = name;
+    event.category = category;
+    event.org_id = org_id;
+    event.location_id = location_id;
+    event.start_date_time = start_date;
+    event.end_date_time = end_date;
+    event.background = background;
+    event.description = description;
+    await event.save()
+    responseHandler.ok(res, { message: "Event updated successfully" });
   } catch (error) {
     console.error(error);
     responseHandler.error(res);
