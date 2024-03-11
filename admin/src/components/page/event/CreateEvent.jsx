@@ -122,10 +122,10 @@ const CreateEvent = ({ close }) => {
           await eventApi.updateEvent({ event_id: eventDataEdit._id, data });
         } else {
     
-          // await eventApi.createEvent(data);
+          await eventApi.createEvent(data);
         }
-        // dispatch(setGlobalLoading(false));
-        // window.location.reload();
+        dispatch(setGlobalLoading(false));
+        window.location.reload();
       } catch (error) {
         console.log("Error creating", error);
       }

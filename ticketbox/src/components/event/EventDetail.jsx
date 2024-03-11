@@ -45,7 +45,7 @@ const EventDetail = ({ event }) => {
           </div>
         </div>
       </div>
-        <EventContent tickets={event.tickets} org={event.org}/>
+        <EventContent tickets={event.tickets} org={event.org} desc={event.description}/>
       <Footer />
     </>
   );

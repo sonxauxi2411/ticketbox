@@ -20,8 +20,8 @@ const EventContact = ({ org, location }) => {
         </div>
         <div className="item-content">
           {/* <span>{location?.display_name}</span> */}
-          <span>{location?.adress}, </span>
-          <span>{location?.city}</span>
+          <span>{location?.adress}, {location?.city} </span>
+         
         </div>
       </div>
      

@@ -8,7 +8,7 @@ import Footer from "../footer/Footer";
 
 const Home = () => {
   const [showText, setShowText] = useState(true);
-  const category = ["Movie ", "Event ", "Sport "];
+  const category = ["Sport ", "Event ", "Sport", "Stage"];
   const [cateNumber, setCateNumber] = useState(0);
   const categoryRef = useRef(null);
 

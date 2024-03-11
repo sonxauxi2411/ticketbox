@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const baseURL = "http://localhost:3000/api";
+const baseURL = "http://localhost:8080/api";
 
 const privateClient = axios.create({
   baseURL,
