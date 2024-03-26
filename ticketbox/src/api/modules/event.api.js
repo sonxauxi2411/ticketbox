@@ -3,7 +3,7 @@ import publicClient from "../client/public.client";
 const eventEndpoint = {
   getEvent: ({ event_id }) => `/event/${event_id}`,
   getTopEvent : '/event/top-events' ,
-  getFilterCate : ({categories}) => `/event/events?category=${categories.join(',')}`
+  getFilterCate : ({categories, show, page}) => `/event/events?category=${categories.join(',')}&page=${page}&show=${show}`
 };
 
 
@@ -25,10 +25,10 @@ const eventApi = {
         }
     },
 
-    getFilterCate : async ({categories})=>{
+    getFilterCate : async ({categories, show, page})=>{
         try {
-            console.log(categories)
-            const response = await publicClient.get(eventEndpoint.getFilterCate({categories}))
+            // console.log(categories)
+            const response = await publicClient.get(eventEndpoint.getFilterCate({categories, show, page}))
             return response
         } catch (error) {
             return {error}

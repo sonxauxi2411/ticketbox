@@ -40,7 +40,7 @@ const Footer = () => {
         <div className="footer-bottom">
                 <div className="footer-bottom-area">
                     <div className="left">
-                        <p>Copyright © 2020.All Rights Reserved By <a href="#0">Boleto </a></p>
+                        <p>Copyright © 2024.All Rights Reserved By <a href="#0">Boleto </a></p>
                     </div>
                     <ul className="links">
                         <li>

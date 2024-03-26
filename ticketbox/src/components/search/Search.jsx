@@ -1,8 +1,9 @@
 import "./search.scss";
 import searchBg from '../../assets/search-bg.jpg'
-import iconSport from '../../assets/icon/table-sport.png'
 import iconEvent from '../../assets/icon/tab-event.png'
 import iconMovie from '../../assets/icon/tab-movie.png'
+import iconSong from '../../assets/icon/ticket-tab02.png'
+import iconSport from '../../assets/icon/ticket-tab03.png'
 import SearchItem from "./SearchItem";
 
 const Search = () => {
@@ -23,13 +24,25 @@ const Search = () => {
                             <div className="tab-thumb">
                                 <img src={iconMovie} alt='movie' />
                             </div>
-                            <span>Movie</span>
+                            <span>Stage</span>
+                        </li>
+                        <li className="active">
+                            <div className="tab-thumb">
+                                <img src={iconSong} alt='song' />
+                            </div>
+                            <span>Event</span>
+                        </li>
+                        <li className="active">
+                            <div className="tab-thumb">
+                                <img src={iconSport} alt='sport' />
+                            </div>
+                            <span>Event</span>
                         </li>
                     </ul>
                 </div>
             </div>
             <div className="tab-area">
-                <SearchItem />
+                {/* <SearchItem /> */}
             </div>
         </div>
       </div>

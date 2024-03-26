@@ -44,8 +44,8 @@ const Home = () => {
           <div className="banner-content">
             <h1 className="title">
               <span className="d-block pb-3">book your</span>
-              <div className="d-flex" style={{ gap: "24px" }}>
-                <span> tickets for</span>
+              <div >
+                <span style={{position:'relative', bottom:'12px', right:'18px'}}> tickets for</span>
                 <span
                   ref={categoryRef}
                   className={`animated-span ${

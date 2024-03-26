@@ -13,20 +13,27 @@ const CategoryPage = () => {
   const [events, setEvents] = useState([]);
   const [checkCate, setCheckCate] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(6);
+  const [totalPage , setTotalPage] = useState(0)
+  const [page, setPage] = useState(1);
+  const handleChange = (e) => {
+    const selectedValue = parseInt(e.target.value);
+    setShow(selectedValue);
+  };
   useEffect(() => {
     const fetchEvent = async ({ categories }) => {
       try {
         setLoading(true);
-        const res = await eventApi.getFilterCate({ categories });
-        // console.log(res);
-        setEvents(res);
+        const res = await eventApi.getFilterCate({ categories, show, page });
+        setTotalPage(res.totalPages)
+        setEvents(res.results);
         setLoading(false);
       } catch (error) {
         console.error(error);
       }
     };
     fetchEvent({ categories: checkCate });
-  }, [checkCate]);
+  }, [checkCate, show, page]);
 
   const handleChangeCate = (cate) => {
     const { checked, value } = cate.target;
@@ -38,6 +45,9 @@ const CategoryPage = () => {
       );
     }
   };
+  console.log(page)
+
+
   return (
     <>
       <Header />
@@ -90,10 +100,13 @@ const CategoryPage = () => {
             <div className="col-9">
               <div className="d-flex flex-column" style={{ gap: "10px" }}>
                 <div className="filter-area">
-                  <div className="d-flex align-items-center" style={{gap:'10px'}}>
+                  <div
+                    className="d-flex align-items-center"
+                    style={{ gap: "10px" }}
+                  >
                     <span>Show:</span>
                     <div className="select">
-                      <select name="show">
+                      <select name="show" value={show} onChange={handleChange}>
                         <option value="6">6</option>
                         <option value="8">8</option>
                         <option value="10">10</option>
@@ -108,7 +121,7 @@ const CategoryPage = () => {
                     <h1>Loading.....</h1>
                   </div>
                 ) : (
-                  <EventList events={events} />
+                  <EventList events={events} totalPage={totalPage} setPage={setPage} pageNumber={page}  />
                 )}
               </div>
             </div>

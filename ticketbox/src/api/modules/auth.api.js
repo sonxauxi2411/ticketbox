@@ -13,21 +13,21 @@ const authApi = {
         email,
         password,
       });
-      console.log("========", response);
+      return response
     } catch (error) {
       console.log("error", error);
+      return error
     }
   },
   login: async ({ email, password }) => {
-    console.log("===login=", email, password);
     try {
       const response = await publicClient.post(authEndpoint.login, {
         email: email,
         password:password,
       });
-      console.log("========", response);
+      return response
     } catch (error) {
-      console.log("=====error===", error);
+     return error
     }
   },
 };

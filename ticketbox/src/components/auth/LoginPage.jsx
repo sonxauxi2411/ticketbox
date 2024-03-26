@@ -1,18 +1,24 @@
 import "./auth.scss";
 import LayoutAuth from "./LayoutAuth";
 import FormGroup from "./FormGroup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ButtonCustom from "../common/ButtonCustom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import {login} from '../../redux/auth/authAction'
+import { reset } from "../../redux/auth/authSlice";
 
 const LoginPage = () => {
-  const [err, setErr] = useState(false);
-  const dispath = useDispatch()
-  
+
+  const dispatch = useDispatch()
+  const {error} = useSelector(state =>state.auth)
+  const navigate = useNavigate()
+  useEffect(() => {
+    dispatch(reset());
+  }, []);
+
   const loginForm = useFormik({
     initialValues: {
       email: "",
@@ -22,11 +28,18 @@ const LoginPage = () => {
     //     email: Yup.string().email('Invalid email').required('Required'),
     // }),
     onSubmit: async (values) => {
-    dispath(login(values))
-        
-     
+      try {
+        dispatch(login({values, navigate}))
+      } catch (error) {
+        console.log(error)
+      }
+           
     },
   });
+// console.log(useSelector(state =>state.auth))
+const handleBlur = (field) => {
+  loginForm.setFieldTouched(field, true);
+};
 
   return (
     <LayoutAuth>
@@ -34,7 +47,9 @@ const LoginPage = () => {
         <div className="header">
           <span className="cate">Hello</span>
           <h2 className="title">WELCOME BACK</h2>
-          <div className="noti-err"></div>
+          <div className="noti-err">
+            {error && <span className="text-danger">{error}</span>}
+          </div>
         </div>
         <form onSubmit={loginForm.handleSubmit} className="form-login">
           <FormGroup
@@ -44,6 +59,7 @@ const LoginPage = () => {
             placeholder="Enter Your Email"
             onChange={loginForm.handleChange}
             value={loginForm.values.email}
+            onBlur={() => handleBlur('email')}
           />
           <FormGroup
             label="Password"
@@ -68,7 +84,7 @@ const LoginPage = () => {
         </form>
         <div className="text-center footer">
           <span>
-            Don&apos;t have an account? <Link> Sign up now</Link>{" "}
+            Don&apos;t have an account? <Link to='/register'> Sign up now</Link>{" "}
           </span>
         </div>
       </div>

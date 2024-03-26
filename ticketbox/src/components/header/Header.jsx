@@ -38,6 +38,9 @@ const Header = ({event}) => {
             </Link>
           </div>
           <div className="d-flex justify-content-center align-items-center">
+          <div className="header-link">
+              <Link to='/event'>Events</Link>
+            </div>
             <div className="header-link">
               <Link>Contact</Link>
             </div>

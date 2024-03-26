@@ -8,12 +8,13 @@ import CountdownTimer from "./CountdownTimer";
 import EventContact from "./EventContact";
 import EventContent from "./EventContent";
 import Footer from "../footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const EventDetail = ({ event }) => {
-  console.log('eeeeeee', event);
+
   const { background } = event;
-
-
+const navigate = useNavigate()
+  console.log(event)
   return (
     <>
       <div
@@ -33,7 +34,7 @@ const EventDetail = ({ event }) => {
                 </div>
                 <div className="right">
                   <CountdownTimer date_time_start={event.date_time_start} />
-                  <ButtonCustom title="Book tickets" small />
+                  <ButtonCustom title="Book tickets" small onClick={()=>navigate(`/booking/${event.id}`)} />
                 </div>
               </div>
               <div className="event-search-bottom">

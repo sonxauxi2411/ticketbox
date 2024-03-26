@@ -1,3 +1,4 @@
+import FormGroup from "../auth/FormGroup";
 import "./search.scss"
 
 const SearchItem = ()=>{
@@ -6,9 +7,10 @@ const SearchItem = ()=>{
     return (
         <div className="tab-item" style={{position:'relative' , zIndex:'9'}} >
             <form className="ticket-search-form">
-                <div className="">
-                    <input type='text' placeholder="Search Of Movie" />
-                </div>
+               <FormGroup 
+                placeholder="Search"
+                search
+               />
             </form>
         </div>
     )
