@@ -6,6 +6,8 @@ router.post('/create' , tickecontroller.createTicket)
 
 router.get('/all' , tickecontroller.ticketAll)
 
+router.get('/event/:eventId', tickecontroller.getTicket)
+
 
 
 module.exports = router

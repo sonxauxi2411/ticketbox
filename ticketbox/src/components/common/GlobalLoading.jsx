@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import "./loading.scss";
 
-const GlobalLoading = ({path}) => {
+const GlobalLoading = ({ path }) => {
   const { globalLoading } = useSelector((state) => state.loading);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,6 @@ const GlobalLoading = ({path}) => {
       }, 1000);
     }
   }, [globalLoading, path]);
-
 
   return (
     <>

@@ -124,3 +124,23 @@
     }
   }
 }
+
+.header-user {
+  button {
+    background: none;
+    border: none;
+
+    &:hover {
+      background: none !important;
+      border: none;
+    }
+    &:active{
+      background: none !important;
+      border: none !important;
+    }
+    &:focus-visible{
+      background: none !important;
+      border: none !important;
+    }
+  }
+}

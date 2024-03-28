@@ -45,7 +45,7 @@ const CategoryPage = () => {
       );
     }
   };
-  console.log(page)
+  // console.log(page)
 
 
   return (

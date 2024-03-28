@@ -1,12 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
+
+const strUser = Cookies.get("user");
+let user = null
+if (strUser)  user = JSON.parse(strUser.replace("j:", ""));
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
-    user: null,
+    user: user,
     error: null,
     isLoading: false,
-    isSucess : false
+    isSucess: false,
   },
   reducers: {
     loginStart: (state) => {
@@ -22,7 +27,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
 
-    registerStart : (state)=>{
+    registerStart: (state) => {
       state.isLoading = true;
       state.error = null;
     },
@@ -30,22 +35,29 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isSucess = false;
       state.error = action.payload;
-
     },
-    registerSucess : (state)=>{
+    registerSucess: (state) => {
       state.isLoading = false;
       state.isSucess = true;
     },
-    reset : (state)=>{
+    reset: (state) => {
       state.user = null;
       state.error = null;
       state.isLoading = false;
       state.isSucess = false;
-    }
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure , registerFailure, registerStart, registerSucess, reset} = authSlice.actions;
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  registerFailure,
+  registerStart,
+  registerSucess,
+  reset,
+} = authSlice.actions;
 export const selectUser = (state) => state.auth.user;
 export const selectError = (state) => state.auth.error;
 

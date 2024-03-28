@@ -1,5 +1,5 @@
 const responseHandler = require("../handlers/response.handler");
-const { EventModel, TicketModel } = require("../models/index");
+const { EventModel, TicketModel,LocationModel } = require("../models/index");
 
 exports.createTicket = async (req, res) => {
   try {
@@ -41,4 +41,35 @@ exports.ticketAll = async (req, res) => {
     console.error(error);
     responseHandler.error(res);
   }
+}
+
+
+
+exports.getTicket = async (req, res, next) => {
+
+  try {
+      const event_id = req.params.eventId;
+      const event = await EventModel.findById(event_id);
+      if (!event)
+        return responseHandler.badrequest(res, { message: "Not fount event" });
+  
+      const location = await LocationModel.findById(event.location_id);
+      const tickets = await TicketModel.find({ event_id: event._id });
+  
+      const data = {
+        id: event._id,
+        display_name: event.display_name,
+        category: event.category,
+        location: location,
+        date_time_start: event.start_date_time,
+        tickets: tickets,
+
+      };
+  
+      console.log(data);
+      responseHandler.ok(res, data);
+    } catch (error) {
+      console.error(error);
+      responseHandler.error(res);
+    }
 }

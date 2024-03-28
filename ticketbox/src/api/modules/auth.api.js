@@ -3,6 +3,7 @@ import publicClient from "../client/public.client";
 const authEndpoint = {
   register: "auth/register",
   login: "auth/login",
+  updateProfile : "auth/update-profile"
 };
 
 const authApi = {
@@ -30,6 +31,20 @@ const authApi = {
      return error
     }
   },
+  updateProfile : async ({user_id, username, fullname, phone , adress })=>{
+    try {
+      const response = await publicClient.post(authEndpoint.updateProfile, {
+        user_id,
+        username,
+        fullname,
+        phone ,
+        adress,
+      });
+      return response
+    } catch (error) {
+      return error
+    }
+  }
 };
 
 export default authApi;

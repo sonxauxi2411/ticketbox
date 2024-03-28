@@ -1,7 +1,7 @@
 import "./auth.scss";
 import LayoutAuth from "./LayoutAuth";
 import FormGroup from "./FormGroup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ButtonCustom from "../common/ButtonCustom";
@@ -15,6 +15,7 @@ const LoginPage = () => {
   const dispatch = useDispatch()
   const {error} = useSelector(state =>state.auth)
   const navigate = useNavigate()
+  const location = useLocation()
   useEffect(() => {
     dispatch(reset());
   }, []);
@@ -29,7 +30,8 @@ const LoginPage = () => {
     // }),
     onSubmit: async (values) => {
       try {
-        dispatch(login({values, navigate}))
+        // console.log(location.state)
+        dispatch(login({values, navigate, next: location.state ? location.state.next : '/'}))
       } catch (error) {
         console.log(error)
       }

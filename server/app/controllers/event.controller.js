@@ -50,7 +50,7 @@ exports.creatEvent = async (req, res) => {
       background,
       description,
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const newEvent = new EventModel({
       display_name: name,
       category,
@@ -174,16 +174,25 @@ exports.topEvent = async (req, res)=>{
 exports.getFilterEventsByCategory = async (req,res)=>{
 
   try {
-    const {category} = req.query
+    const {category,page, show} = req.query
+    const pageNum = parseInt(page) || 1;
+    const showNum = parseInt(show) || 6; 
+
+    const skipEvents = (pageNum - 1) * showNum;
     const categories = category.split(',')
+    console.log(skipEvents);
     const regexCategories = categories.map(cat => new RegExp(cat, 'i'));
-    const filteredEvents = await EventModel.find({ category: { $in: regexCategories } });
+    const filteredEvents = await EventModel.find({ category: { $in: regexCategories } }).skip(skipEvents)
+      .limit(showNum);
+
+    const totalEvents = await EventModel.countDocuments({ category: { $in: regexCategories } });
+    const totalPages = Math.ceil(totalEvents / showNum);
 
     const results = await Promise.all(filteredEvents.map(async (e) => {
       const org = await OrgModel.findById(e.org_id);
       return { background: e.background, _id: e._id, display_name: e.display_name, org: org.display_name, start_date: e.start_date_time };
     }));
-    return responseHandler.ok(res, results);
+    return responseHandler.ok(res, {page : pageNum, show : showNum, results : results, totalPages : totalPages});
   } catch (error) {
     console.error(error);
     responseHandler.error(res);

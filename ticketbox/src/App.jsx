@@ -8,23 +8,31 @@ import CategoryPage from './components/category/CategoryPage';
 import PageWrapper from './components/common/PageWrapper';
 import BookingPage from './components/booking/BookingPage';
 import RegisterPage from './components/auth/RegisterPage';
-
+import MyTicket from './components/ticket/MyTicket';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UserProfile from './components/header/UserProfile';
 
 function App() {
+
   return (
     <>
-     
+      <div>
+
+        <ToastContainer />
+      </div>
       <Routes>
         <Route path='/'  element={<>
-          <GlobalLoading  />
+         <PageWrapper path='/' >
+         <GlobalLoading  />
           <Home />
+         </PageWrapper>
         </>} />
         <Route path='/login' element ={<LoginPage />} />
         <Route path='/register' element ={<RegisterPage />} />
         <Route path='/event' element ={
-     
         <PageWrapper path='/event'>
-          <GlobalLoading  />
+          <GlobalLoading   />
           <CategoryPage />
         </PageWrapper>
         
@@ -38,6 +46,20 @@ function App() {
           <GlobalLoading  />
           <BookingPage />
         </PageWrapper>} />
+
+        <Route path ='/my-ticket' element ={
+          <PageWrapper path ='/my-ticket'>
+            <GlobalLoading  />
+            <MyTicket />
+          </PageWrapper>
+        } />
+
+    <Route path ='/profile' element ={
+          <PageWrapper path ='/profile'>
+            <GlobalLoading  />
+            <UserProfile />
+          </PageWrapper>
+        } />
       </Routes>
     </>
   );

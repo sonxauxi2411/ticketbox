@@ -28,9 +28,9 @@ const Home = () => {
         }
       }
     }, 1600);
-
+  
     return () => clearInterval(intervalId);
-  }, []);
+  },  []);
 
   return (
     <div>

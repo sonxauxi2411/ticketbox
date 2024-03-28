@@ -57,3 +57,21 @@ exports.login = async (req, res) => {
     responseHandler.error(res);
   }
 };
+
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+    const {fullname, phone, adress, user_id} = req.body;
+    const user = await UserModel.findById(user_id);
+    if (!user) return  responseHandler.badrequest(res, {mesages : 'Not user'});
+    user.fullname = fullname;
+    user.phone = phone;
+    user.adress = adress;
+    await user.save();
+    return responseHandler.ok(res, user)
+    
+  } catch (error) {
+    console.error( error);
+    responseHandler.error(res);
+  }
+}

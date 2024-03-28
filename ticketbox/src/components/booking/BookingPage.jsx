@@ -5,15 +5,18 @@ import background from "../../assets/banner07.jpg";
 import "./booking.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { setGlobalLoading } from "../../redux/loading/loadingSlice";
 import bookingApi from "../../api/modules/booking.api";
+import Footer from "../footer/Footer";
 
 const BookingPage = () => {
   const [event, setEvent] = useState({});
   const { eventId } = useParams();
   const dispatch = useDispatch();
+
+
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -31,7 +34,7 @@ const BookingPage = () => {
     }
   }, [eventId]);
 
-  console.log(event);
+  // console.log(event);
 
   return (
     <>
@@ -62,6 +65,8 @@ const BookingPage = () => {
         </div>
        </div>
       </div>
+
+      <Footer />
     </>
   );
 };

@@ -1,14 +1,17 @@
 import "./header.scss";
 import logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ButtonCustom from "../common/ButtonCustom";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Cookies from 'js-cookie'
+import User from "./User";
 
 const Header = ({event}) => {
   const navigate = useNavigate();
+  const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false);
-
+   
   useEffect(()=>{
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -24,8 +27,12 @@ const Header = ({event}) => {
     };
   },[])
   const handlerLogin = () => {
-    navigate("/login");
+    // console.log(location.pathname)
+    navigate("/login" , {state: {next: location.pathname ? location.pathname : '/'}});
   };
+
+  const user =Cookies.get("user");
+  
   return (
     <div className={`header-seaction ${isScrolled ? 'header-active' : ''}`} 
     // style={{background: `${event ? '#0a1e5e' : ''}`}}
@@ -45,7 +52,7 @@ const Header = ({event}) => {
               <Link>Contact</Link>
             </div>
             <div className="ps-3">
-              <ButtonCustom title="Join us" onClick={handlerLogin} />
+              {user ? <User /> : <ButtonCustom title="Join us" onClick={handlerLogin} />}
             </div>
           </div>
         </div>

@@ -11,9 +11,10 @@ const FormGroup = ({
   errorMessage,
   onBlur,
   onFocus,
-  search
+  search, 
+  readonly
 }) => {
-    console.log(errorMessage)
+    // console.log(errorMessage)
   return (
     <div className="form-group">
       <div className="d-flex" style={{gap:'20px'}}>
@@ -24,6 +25,7 @@ const FormGroup = ({
         </span>
       </div>
       <input
+      readOnly= {readonly}
         onChange={onChange}
         value={value}
         type={type}
@@ -32,6 +34,7 @@ const FormGroup = ({
         onBlur={onBlur}
         onFocus={onFocus}
       className={`${search ? 'search' : ""}`}
+   
       />
     </div>
   );

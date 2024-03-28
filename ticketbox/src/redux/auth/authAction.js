@@ -1,7 +1,7 @@
 import { loginStart, loginSuccess, loginFailure ,registerStart ,registerFailure, registerSucess} from "./authSlice";
 import authApi from "../../api/modules/auth.api";
 
-export const login = ({values, navigate}) => async (dispatch) => {
+export const login = ({values, navigate, next}) => async (dispatch) => {
   try {
     dispatch(loginStart());
     const { email, password } = values;
@@ -10,8 +10,9 @@ export const login = ({values, navigate}) => async (dispatch) => {
     if ( message) dispatch(loginFailure(message));
       
     if ( user){
+      console.log('next', next)
       dispatch(loginSuccess(user))
-      navigate('/')
+      navigate(next ? next : '/')
     }
     
     

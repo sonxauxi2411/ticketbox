@@ -8,6 +8,7 @@ const store = configureStore({
     auth: authReducer,
     loading: loadingReducer,
     booking : bookingReducer,
+
   },
 });
 
