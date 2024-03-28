@@ -5,13 +5,14 @@ import { useEffect, useState, useRef } from "react";
 import Search from "../search/Search";
 import CategoryTicket from "./CategoryTicket";
 import Footer from "../footer/Footer";
+import { useMediaQuery } from 'react-responsive'
 
 const Home = () => {
   const [showText, setShowText] = useState(true);
   const category = ["Sport ", "Event ", "Sport", "Stage"];
   const [cateNumber, setCateNumber] = useState(0);
   const categoryRef = useRef(null);
-
+  const isIpadMin = useMediaQuery({minWidth :  768})
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (categoryRef.current) {

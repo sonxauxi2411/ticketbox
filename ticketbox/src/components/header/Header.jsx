@@ -4,15 +4,18 @@ import { Link, useLocation } from "react-router-dom";
 import ButtonCustom from "../common/ButtonCustom";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 import User from "./User";
-
-const Header = ({event}) => {
+import { useMediaQuery } from "react-responsive";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { VscChromeClose } from "react-icons/vsc";
+const Header = ({ event }) => {
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-   
-  useEffect(()=>{
+  const [showMenu, setShowMenu] = useState(false);
+  const isIpadMin = useMediaQuery({ maxWidth: 992 });
+  useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       if (scrollPosition > 0) {
@@ -21,21 +24,24 @@ const Header = ({event}) => {
         setIsScrolled(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  },[])
+  }, []);
   const handlerLogin = () => {
     // console.log(location.pathname)
-    navigate("/login" , {state: {next: location.pathname ? location.pathname : '/'}});
+    navigate("/login", {
+      state: { next: location.pathname ? location.pathname : "/" },
+    });
   };
 
-  const user =Cookies.get("user");
-  
+  const user = Cookies.get("user");
+
   return (
-    <div className={`header-seaction ${isScrolled ? 'header-active' : ''}`} 
-    // style={{background: `${event ? '#0a1e5e' : ''}`}}
+    <div
+      className={`header-seaction ${isScrolled ? "header-active" : ""}`}
+      // style={{background: `${event ? '#0a1e5e' : ''}`}}
     >
       <div className="container">
         <div className="d-flex align-items-center justify-content-between ">
@@ -44,17 +50,52 @@ const Header = ({event}) => {
               <img src={logo} alt="logo" className="logo" />
             </Link>
           </div>
-          <div className="d-flex justify-content-center align-items-center">
-          <div className="header-link">
-              <Link to='/event'>Events</Link>
+          {!isIpadMin ? (
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="header-link">
+                <Link to="/event">Events</Link>
+              </div>
+              <div className="header-link">
+                <Link>Contact</Link>
+              </div>
+              <div className="ps-3">
+                {user ? (
+                  <User />
+                ) : (
+                  <ButtonCustom title="Join us" onClick={handlerLogin} />
+                )}
+              </div>
             </div>
-            <div className="header-link">
-              <Link>Contact</Link>
+          ) : (
+            <div>
+              <button
+                className="btn-hamburger"
+                onClick={() => setShowMenu(!showMenu)}
+              >
+                {!showMenu ? <RxHamburgerMenu /> : <VscChromeClose />}
+              </button>
+              {showMenu && (
+                <div className="header-hamburger">
+                  <div className="menu ">
+                    <div className="p-3">
+                      <div className="header-link">
+                        <Link to="/event">Events</Link>
+                      </div>
+                      <div className="header-link">
+                        <Link>Contact</Link>
+                      </div>
+
+                      {user ? (
+                        <User />
+                      ) : (
+                        <ButtonCustom title="Join us" onClick={handlerLogin} />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="ps-3">
-              {user ? <User /> : <ButtonCustom title="Join us" onClick={handlerLogin} />}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
