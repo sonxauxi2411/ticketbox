@@ -9,6 +9,8 @@ import User from "./User";
 import { useMediaQuery } from "react-responsive";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { VscChromeClose } from "react-icons/vsc";
+
+
 const Header = ({ event }) => {
   const navigate = useNavigate();
   const location = useLocation();

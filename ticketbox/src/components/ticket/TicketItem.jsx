@@ -7,7 +7,7 @@ const TicketItem = ({ bookings }) => {
   return (
     <div className="pt-4">
       {bookings.length !== 0 ? (
-        <div className="d-flex" style={{ gap: "20px" }}>
+        <div className="d-flex flex-wrap" style={{ gap: "20px" }}>
           {bookings.map((b) => {
             const dateObject = new Date(b.event.start_date);
             const day = dateObject.getDate();

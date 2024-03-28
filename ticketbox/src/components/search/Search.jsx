@@ -5,8 +5,10 @@ import iconMovie from '../../assets/icon/tab-movie.png'
 import iconSong from '../../assets/icon/ticket-tab02.png'
 import iconSport from '../../assets/icon/ticket-tab03.png'
 import SearchItem from "./SearchItem";
+import {useMediaQuery} from 'react-responsive'
 
 const Search = () => {
+    const isMobile = useMediaQuery({minWidth : 576})
   return (
     <div className="search-ticket-section padding-top pt-lg-0">
       <div className="container">
@@ -19,20 +21,20 @@ const Search = () => {
                             </div>
                 </div>
                 <div className="col-lg-6 mb-20">
-                    <ul className="tab-menu ticket-tab-menu">
-                        <li className="active">
+                    <ul className={`tab-menu ${!isMobile && ' flex-column'} ticket-tab-menu `}>
+                        <li className={`active  ${!isMobile && 'w-100'} `}>
                             <div className="tab-thumb">
                                 <img src={iconMovie} alt='movie' />
                             </div>
                             <span>Stage</span>
                         </li>
-                        <li className="active">
+                        <li className={`active  ${!isMobile && 'w-100'} `}>
                             <div className="tab-thumb">
                                 <img src={iconSong} alt='song' />
                             </div>
                             <span>Event</span>
                         </li>
-                        <li className="active">
+                        <li className={`active  ${!isMobile && 'w-100'} `}>
                             <div className="tab-thumb">
                                 <img src={iconSport} alt='sport' />
                             </div>

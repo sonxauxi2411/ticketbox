@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CategoryPage from "../category/CategoryPage";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
+import { useMediaQuery } from "react-responsive";
 
 function truncateString(str, maxLength) {
   if (str.length > maxLength) {
@@ -15,9 +16,11 @@ const EventList = ({ events, totalPage, setPage, pageNumber }) => {
     { length: totalPage },
     (_, index) => index + 1
   );
+  const isIpad = useMediaQuery({ maxWidth: 768 });
+  const isMobile = useMediaQuery({ maxWidth:576 });
   return (
     <>
-      <div className=" event-list">
+      <div className={`event-list ${isMobile ? 'd-flex flex-column' : ""}`}>
         {events.map((e) => {
           return (
             <div
@@ -31,8 +34,8 @@ const EventList = ({ events, totalPage, setPage, pageNumber }) => {
               </div>
               <img src={e.background} alt="a" width="100%" />
               <div className="p-3 card-cate-body">
-                <h5 className="pb-2">{truncateString(e.display_name, 72)}</h5>
-                <span>{e.org}</span>
+                <h5 className="pb-2" style={{fontSize:`${isIpad ? '14px' : ""}`}}>{truncateString(e.display_name, isIpad ? 42 :72)}</h5>
+                <span style={{fontSize:`${isIpad ? '12px' : ""}`}}>{e.org}</span>
               </div>
             </div>
           );

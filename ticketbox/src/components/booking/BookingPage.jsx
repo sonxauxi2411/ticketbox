@@ -10,13 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setGlobalLoading } from "../../redux/loading/loadingSlice";
 import bookingApi from "../../api/modules/booking.api";
 import Footer from "../footer/Footer";
+import { useMediaQuery } from "react-responsive";
 
 const BookingPage = () => {
   const [event, setEvent] = useState({});
   const { eventId } = useParams();
   const dispatch = useDispatch();
 
-
+  const isIpad = useMediaQuery({ maxWidth: 992 });
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -47,23 +48,33 @@ const BookingPage = () => {
           <div className="booking-title">
             <h2>{event.display_name}</h2>
             <h4>
-              {event.location?.adress}, 
-              {event.location?.city}
+              {event.location?.adress},{event.location?.city}
             </h4>
           </div>
         </div>
-       <div className="wrapper-booking-content">
-       <div className="container" >
-          <div className="row" style={{gap:'20px', flexWrap:"nowrap"}}>
-            <div className="col-8">
-              <BookingContent event={event} />
-            </div>
-            <div className="col-4">
-              <BookingSummery />
-            </div>
+        <div className="wrapper-booking-content">
+          <div className="container">
+            {isIpad ? (
+              <div className="d-flex flex-column">
+                 <div className="">
+                  <BookingContent event={event} />
+                </div>
+                <div className="" style={{overflow: "hidden"}}>
+                  <BookingSummery />
+                </div>
+              </div>
+            ) : (
+              <div className="row" style={{ gap: "20px", flexWrap: "nowrap" }}>
+                <div className="col-8">
+                  <BookingContent event={event} />
+                </div>
+                <div className="col-4 " style={{overflow: "hidden"}}>
+                  <BookingSummery />
+                </div>
+              </div>
+            )}
           </div>
         </div>
-       </div>
       </div>
 
       <Footer />

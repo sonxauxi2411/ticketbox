@@ -5,7 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import bookingApi from "../../api/modules/booking.api";
 import { resetBooking } from "../../redux/booking/bookingSlice";
-
+import { useMediaQuery } from "react-responsive";
 const BookingSummery = () => {
   const tickets = useSelector((state) => state.booking.tickets);
   const total = useSelector((state) => state.booking.total);
@@ -15,6 +15,7 @@ const BookingSummery = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const isIpad =  useMediaQuery({maxWidth : 1200})
   const handleBooking = async () => {
     try {
       if (!user)
@@ -88,7 +89,7 @@ const BookingSummery = () => {
           );
         })}
       </div>
-      <div className="total-booking d-flex justify-content-between pt-4">
+      <div className={`total-booking d-flex ${isIpad ? 'flex-column' : ""} justify-content-between pt-4 `}>
         <span className=" fw-bolder">AMOUNT PAYABLE</span>
         <span>{formatCurrencyVND(total)}</span>
       </div>

@@ -5,9 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-
+import { useMediaQuery } from "react-responsive";
+import { useEffect, useState } from "react";
 function truncateString(str, maxLength) {
-  
   if (str.length > maxLength) {
     return str.substring(0, maxLength) + "...";
   }
@@ -15,11 +15,25 @@ function truncateString(str, maxLength) {
 }
 
 const Slide = ({ data }) => {
-  const navigate = useNavigate()
-  // console.log(data);
+  const navigate = useNavigate();
+  const isIpadMin = useMediaQuery({ maxWidth: 992 });
+  const isMobile = useMediaQuery({ maxWidth: 576 });
+  const isDesktop = useMediaQuery({ minWidth: 992 });
+  const [prvieSlide, setPrviewSlide] = useState(3);
+  useEffect(() => {
+    if (isIpadMin) {
+      setPrviewSlide(2);
+    }
+    if (isMobile) {
+      setPrviewSlide(1);
+    }
+    if (isDesktop) {
+      setPrviewSlide(3);
+    }
+  }, [isIpadMin, isMobile, isDesktop]);
   return (
     <Swiper
-      slidesPerView={3}
+      slidesPerView={prvieSlide}
       spaceBetween={30}
       loop={true}
       autoplay={{
@@ -36,14 +50,17 @@ const Slide = ({ data }) => {
     >
       {data.map((e) => {
         return (
-          <SwiperSlide key={e._id} onClick={()=>navigate(`/event/${e._id}`)}>
-            <div className="card" >
+          <SwiperSlide key={e._id} onClick={() => navigate(`/event/${e._id}`)}>
+            <div className="card">
               <div className="event-date">
                 <h6 className="date-title">28</h6>
                 <span>Dec</span>
               </div>
               <img src={e.background} alt="a" width="100%" />
-              <div className="p-3 card-cate-body" style={{minHeight:'134px'}}>
+              <div
+                className="p-3 card-cate-body"
+                style={{ minHeight: "134px" }}
+              >
                 <h5 className="pb-3">{truncateString(e.display_name, 42)}</h5>
                 <span>{truncateString(e.org, 30)}</span>
               </div>
@@ -51,7 +68,6 @@ const Slide = ({ data }) => {
           </SwiperSlide>
         );
       })}
-      
     </Swiper>
   );
 };
