@@ -30,7 +30,7 @@ const UserProfile = () => {
   });
   return (
     <>
-      <Header />
+      <Header title='Profile' />
 
       <div className="wrapper-profile">
         <div className="container">

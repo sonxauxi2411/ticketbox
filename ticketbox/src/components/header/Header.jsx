@@ -9,9 +9,9 @@ import User from "./User";
 import { useMediaQuery } from "react-responsive";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { VscChromeClose } from "react-icons/vsc";
+import {Helmet} from 'react-helmet'
 
-
-const Header = ({ event }) => {
+const Header = ({ title }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,7 +41,12 @@ const Header = ({ event }) => {
   const user = Cookies.get("user");
 
   return (
-    <div
+   <>
+   <Helmet>
+    <title>{title ? title : "Boleto  - Online Ticket Booking Website HTML Template"}</title>
+    
+   </Helmet>
+     <div
       className={`header-seaction ${isScrolled ? "header-active" : ""}`}
       // style={{background: `${event ? '#0a1e5e' : ''}`}}
     >
@@ -101,6 +106,7 @@ const Header = ({ event }) => {
         </div>
       </div>
     </div>
+   </>
   );
 };
 

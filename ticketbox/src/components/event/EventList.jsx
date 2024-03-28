@@ -21,7 +21,7 @@ const EventList = ({ events, totalPage, setPage, pageNumber }) => {
   return (
     <>
       <div className={`event-list ${isMobile ? 'd-flex flex-column' : ""}`}>
-        {events.map((e) => {
+        {events?.map((e) => {
           return (
             <div
               className="card "

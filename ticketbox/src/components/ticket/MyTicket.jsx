@@ -39,7 +39,7 @@ const MyTicket = () => {
   },[])
   return (
     <>
-      <Header />
+      <Header title='My Tickets' />
 
       <div className="my-ticket-wrapper">
         <div

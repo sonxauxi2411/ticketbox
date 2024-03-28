@@ -1,45 +1,39 @@
-import { useEffect, useState } from "react"
-import Header from "../header/Header"
-import './event.scss'
-import eventApi from "../../api/modules/event.api"
-import { useParams } from "react-router-dom"
-import EventDetail from "./EventDetail"
-import { useDispatch, useSelector } from "react-redux"
-import { setGlobalLoading } from "../../redux/loading/loadingSlice"
+import { useEffect, useState } from "react";
+import Header from "../header/Header";
+import "./event.scss";
+import eventApi from "../../api/modules/event.api";
+import { useParams } from "react-router-dom";
+import EventDetail from "./EventDetail";
+import { useDispatch, useSelector } from "react-redux";
+import { setGlobalLoading } from "../../redux/loading/loadingSlice";
 
+const Event = () => {
+  const [event, setEvent] = useState({});
+  const { eventId } = useParams();
+  const dispatch = useDispatch();
 
-const Event = ()=>{
-    const [event, setEvent] = useState({})
-    const {eventId} = useParams()
-    const dispatch = useDispatch()
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const response = await eventApi.getEvent({ event_id: eventId });
 
+        setEvent(response);
+      } catch (error) {
+        console.error("Error fetching event:", error);
+      }
+    };
+    if (eventId) {
+      dispatch(setGlobalLoading(true));
+      fetchEvent();
+    }
+  }, [eventId]);
 
-    useEffect(() => {
-        const fetchEvent = async () => {
-            try {
-                const response = await eventApi.getEvent({ event_id: eventId });
-                
-                setEvent(response); 
-            } catch (error) {
-                console.error('Error fetching event:', error);
-            }
-        };
-        if (eventId) {
-            dispatch(setGlobalLoading(true))
-            fetchEvent();
-        }
-
-
-    }, [eventId]);
-
-
-
-    return (
-       <div>
-            <Header event />
-           <EventDetail event={event}  />
-       </div>
-    )
-}
+  return (
+    <div>
+      <Header title={event.display_name} />
+      <EventDetail event={event} />
+    </div>
+  );
+};
 
 export default Event;

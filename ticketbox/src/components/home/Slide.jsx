@@ -7,6 +7,9 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useState } from "react";
+import { format } from 'date-fns';
+import { enUS } from 'date-fns/locale';
+
 function truncateString(str, maxLength) {
   if (str.length > maxLength) {
     return str.substring(0, maxLength) + "...";
@@ -49,12 +52,15 @@ const Slide = ({ data }) => {
       className="silde w-100 h-100"
     >
       {data.map((e) => {
+        const formattedMonth = format(new Date(e.start_date), 'MMM', { locale: enUS });
+        const formattedDay = format(new Date(e.start_date), 'dd', { locale: enUS });
+  
         return (
           <SwiperSlide key={e._id} onClick={() => navigate(`/event/${e._id}`)}>
             <div className="card">
               <div className="event-date">
-                <h6 className="date-title">28</h6>
-                <span>Dec</span>
+                <h6 className="date-title">{formattedDay}</h6>
+                <span>{formattedMonth}</span>
               </div>
               <img src={e.background} alt="a" width="100%" />
               <div

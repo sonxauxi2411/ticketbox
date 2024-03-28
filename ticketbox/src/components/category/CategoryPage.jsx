@@ -15,10 +15,10 @@ const CategoryPage = () => {
   const [checkCate, setCheckCate] = useState([]);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(6);
-  const [totalPage , setTotalPage] = useState(0)
+  const [totalPage, setTotalPage] = useState(0);
   const [page, setPage] = useState(1);
   const isIpad = useMediaQuery({ maxWidth: 768 });
-  const isMobile = useMediaQuery({ maxWidth:576 });
+  const isMobile = useMediaQuery({ maxWidth: 576 });
   const handleChange = (e) => {
     const selectedValue = parseInt(e.target.value);
     setShow(selectedValue);
@@ -28,7 +28,7 @@ const CategoryPage = () => {
       try {
         setLoading(true);
         const res = await eventApi.getFilterCate({ categories, show, page });
-        setTotalPage(res.totalPages)
+        setTotalPage(res.totalPages);
         setEvents(res.results);
         setLoading(false);
       } catch (error) {
@@ -50,10 +50,9 @@ const CategoryPage = () => {
   };
   // console.log(page)
 
-
   return (
     <>
-      <Header />
+      <Header title="Events" />
       <div className="banner-section">
         <div
           className="home-bg"
@@ -73,11 +72,16 @@ const CategoryPage = () => {
 
       <div className="event-section">
         <div className="container">
-         {isIpad ? <div className="d-flex flex-column" style={{gap:'40px'}}>
-         <div className="card">
+          {isIpad ? (
+            <div className="d-flex flex-column" style={{ gap: "40px" }}>
+              <div className="card">
                 <div className="card-header">CATEGORIES</div>
                 <div className="card-body">
-                  <ul className={`${isMobile ? "" : "d-flex justify-content-between"}`} >
+                  <ul
+                    className={`${
+                      isMobile ? "" : "d-flex justify-content-between"
+                    }`}
+                  >
                     {filter.map((f) => {
                       return (
                         <li className="d-flex" key={f}>
@@ -97,87 +101,107 @@ const CategoryPage = () => {
               </div>
 
               <div>
-              <div className="d-flex flex-column" style={{ gap: "10px" }}>
-                <div className="filter-area">
-                  <div
-                    className="d-flex align-items-center"
-                    style={{ gap: "10px" }}
-                  >
-                    <span>Show:</span>
-                    <div className="select">
-                      <select name="show" value={show} onChange={handleChange}>
-                        <option value="6">6</option>
-                        <option value="8">8</option>
-                        <option value="10">10</option>
-                      </select>
+                <div className="d-flex flex-column" style={{ gap: "10px" }}>
+                  <div className="filter-area">
+                    <div
+                      className="d-flex align-items-center"
+                      style={{ gap: "10px" }}
+                    >
+                      <span>Show:</span>
+                      <div className="select">
+                        <select
+                          name="show"
+                          value={show}
+                          onChange={handleChange}
+                        >
+                          <option value="6">6</option>
+                          <option value="8">8</option>
+                          <option value="10">10</option>
+                        </select>
+                      </div>
                     </div>
+                    <div>Sort</div>
                   </div>
-                  <div>Sort</div>
-                </div>
-                {loading ? (
-                  <div>
-                    {" "}
-                    <h1>Loading.....</h1>
-                  </div>
-                ) : (
-                  <EventList events={events} totalPage={totalPage} setPage={setPage} pageNumber={page}  />
-                )}
-              </div>
-              </div>
-         </div> :  
-         <div className="row">
-            <div className="col-3">
-              <div className="card">
-                <div className="card-header">CATEGORIES</div>
-                <div className="card-body">
-                  <ul>
-                    {filter.map((f) => {
-                      return (
-                        <li className="d-flex" key={f}>
-                          <input
-                            type="checkbox"
-                            value={f}
-                            id={f}
-                            checked={checkCate.includes(f)}
-                            onChange={handleChangeCate}
-                          />
-                          <label htmlFor={f}>{f}</label>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                  {loading ? (
+                    <div>
+                      {" "}
+                      <h1>Loading.....</h1>
+                    </div>
+                  ) : (
+                    <EventList
+                      events={events}
+                      totalPage={totalPage}
+                      setPage={setPage}
+                      pageNumber={page}
+                    />
+                  )}
                 </div>
               </div>
             </div>
-            <div className="col-9">
-              <div className="d-flex flex-column" style={{ gap: "10px" }}>
-                <div className="filter-area">
-                  <div
-                    className="d-flex align-items-center"
-                    style={{ gap: "10px" }}
-                  >
-                    <span>Show:</span>
-                    <div className="select">
-                      <select name="show" value={show} onChange={handleChange}>
-                        <option value="6">6</option>
-                        <option value="8">8</option>
-                        <option value="10">10</option>
-                      </select>
-                    </div>
+          ) : (
+            <div className="row">
+              <div className="col-3">
+                <div className="card">
+                  <div className="card-header">CATEGORIES</div>
+                  <div className="card-body">
+                    <ul>
+                      {filter.map((f) => {
+                        return (
+                          <li className="d-flex" key={f}>
+                            <input
+                              type="checkbox"
+                              value={f}
+                              id={f}
+                              checked={checkCate.includes(f)}
+                              onChange={handleChangeCate}
+                            />
+                            <label htmlFor={f}>{f}</label>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
-                  <div>Sort</div>
                 </div>
-                {loading ? (
-                  <div>
-                    {" "}
-                    <h1>Loading.....</h1>
+              </div>
+              <div className="col-9">
+                <div className="d-flex flex-column" style={{ gap: "10px" }}>
+                  <div className="filter-area">
+                    <div
+                      className="d-flex align-items-center"
+                      style={{ gap: "10px" }}
+                    >
+                      <span>Show:</span>
+                      <div className="select">
+                        <select
+                          name="show"
+                          value={show}
+                          onChange={handleChange}
+                        >
+                          <option value="6">6</option>
+                          <option value="8">8</option>
+                          <option value="10">10</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>Sort</div>
                   </div>
-                ) : (
-                  <EventList events={events} totalPage={totalPage} setPage={setPage} pageNumber={page}  />
-                )}
+                  {loading ? (
+                    <div>
+                      {" "}
+                      <h1>Loading.....</h1>
+                    </div>
+                  ) : (
+                    <EventList
+                      events={events}
+                      totalPage={totalPage}
+                      setPage={setPage}
+                      pageNumber={page}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>}
+          )}
         </div>
       </div>
       <Footer />

@@ -7,6 +7,7 @@ import CategoryTicket from "./CategoryTicket";
 import Footer from "../footer/Footer";
 import { useMediaQuery } from 'react-responsive'
 
+
 const Home = () => {
   const [showText, setShowText] = useState(true);
   const category = ["Sport ", "Event ", "Sport", "Stage"];
@@ -35,7 +36,8 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      
+      <Header  />
       <div className="banner-section">
         <div
           className="home-bg"

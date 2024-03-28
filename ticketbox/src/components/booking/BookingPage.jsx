@@ -39,7 +39,7 @@ const BookingPage = () => {
 
   return (
     <>
-      <Header />
+      <Header title={`Booking - ${event.display_name}`} />
       <div className="wrapper-booking ">
         <div
           className="bg-booking"
