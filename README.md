@@ -17,7 +17,7 @@ This project is a custom ticketing website inspired by Ticketbox.vn, a popular p
    server : cd server
    client : cd ticketbox
    admin : cd admin
-3. npm install --force -> npm start
+3. npm install --force -> npm start (npm run build )
 
 ## Link Demo 
 client : https://ticket-client-kappa.vercel.app/
@@ -28,7 +28,7 @@ sever deploy render
 - account admin : admin@admin.com / admin
 
 ## Roadmap
-- [x] Login google and Facebook
-- Filter modules in page Admin
-- Feature Search
-- Dashboard admin
+- Login google and Facebook :x:
+- Filter modules in page Admin :x:
+- Feature Search :x:
+- Dashboard admin :x:
