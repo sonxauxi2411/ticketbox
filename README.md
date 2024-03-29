@@ -20,11 +20,11 @@ This project is a custom ticketing website inspired by Ticketbox.vn, a popular p
 3. npm install --force -> npm start (npm run build )
 
 ## Link Demo 
-client : https://ticket-client-kappa.vercel.app/
-admin : https://ticket-admin-eosin.vercel.app/
-server : https://sonxauxi-ticket-server.onrender.com
-client and admin deploy vercel
-sever deploy render
+client : https://ticket-client-kappa.vercel.app/ </br>
+admin : https://ticket-admin-eosin.vercel.app/ </br>
+server : https://sonxauxi-ticket-server.onrender.com </br>
+client and admin deploy vercel </br>
+sever deploy render </br>
 - account admin : admin@admin.com / admin
 
 ## Roadmap
